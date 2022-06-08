@@ -19,3 +19,6 @@ auth0_login:
   
 auth0_logout:
   path: "/auth0/logout"
+
+google_login:
+  path: /login/check-google
