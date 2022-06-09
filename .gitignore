@@ -31,3 +31,5 @@ yarn-error.log
 ###< symfony/web-server-bundle ###
 
 .env
+
+private.key
