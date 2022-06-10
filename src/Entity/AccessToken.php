@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\AccessTokenRepository;
+use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AccessTokenRepository::class)
  */
-class AccessToken
+class AccessToken extends AccessTokenEntityInterface
 {
     /**
      * @ORM\Id
