@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=AccessTokenRepository::class)
  */
-class AccessToken extends AccessTokenEntityInterface
+class AccessToken 
 {
     /**
      * @ORM\Id
