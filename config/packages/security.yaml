@@ -1,7 +1,7 @@
 security:
   enable_authenticator_manager: true
   password_hashers:
-      Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
 
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
@@ -12,54 +12,55 @@ security:
         property: email
     oauth_hwi:
       id: hwi_oauth.user.provider
-        
+
   firewalls:
+    api_token:
+      pattern: ^/token
+      security: false
+
+    api:
+      pattern: ^/api
+      provider: oauth_hwi
+      security: true
+      stateless: true
+      oauth2: true
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
       lazy: true
-      provider:  oauth_hwi
+      provider: oauth_hwi
       oauth:
         resource_owners:
           auth0: "/auth0/callback"
           google: "/login/check-google"
-        login_path:  /
+        login_path: /
         failure_path: /
         default_target_path: /list
         oauth_user_provider:
           service: hwi_oauth.user.provider
-      
+
       form_login:
-         login_path: login
-         check_path: login
-         provider:  app_user_provider
+        login_path: login
+        check_path: login
+        provider: app_user_provider
       logout:
         path: logout
         target: /
-
-    oauth_token:
-      pattern: ^/oauth/v2/token
-      security: false
-
-
-    api_token:
-      pattern: ^/api/token$
-      security: false
 
   access_control:
     - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
 
 when@test:
-    security:
-        password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
-            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-                algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+  security:
+    password_hashers:
+      # By default, password hashers are resource intensive and take time. This is
+      # important to generate secure password hashes. In tests however, secure hashes
+      # are not important, waste resources and increase test times. The following
+      # reduces the work factor to the lowest possible values.
+      Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+        algorithm: auto
+        cost: 4 # Lowest possible value for bcrypt
+        time_cost: 3 # Lowest possible value for argon
+        memory_cost: 10 # Lowest possible value for argon
