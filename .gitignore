@@ -33,3 +33,7 @@ yarn-error.log
 .env
 
 private.key
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

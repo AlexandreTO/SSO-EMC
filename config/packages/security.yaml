@@ -14,25 +14,28 @@ security:
       id: hwi_oauth.user.provider
 
   firewalls:
-    api_token:
-      pattern: ^/token
-      security: false
+    login:
+      pattern: ^/api/login
+      provider: app_user_provider
+      lazy: true
+      stateless: true
+      json_login:
+        check_path: /api/login_check # or api_login_check as defined in config/routes.yaml
+        username_path: email
+        password_path: password
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
     api:
       pattern: ^/api
-      provider: oauth_hwi
-      security: true
       stateless: true
-      oauth2: true
-    dev:
-      pattern: ^/(_(profiler|wdt)|css|images|js)/
-      security: false
+      provider: app_user_provider
+      jwt: ~
     main:
       lazy: true
       provider: oauth_hwi
       oauth:
         resource_owners:
-          auth0: "/auth0/callback"
           google: "/login/check-google"
         login_path: /
         failure_path: /
@@ -51,6 +54,9 @@ security:
   access_control:
     - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
+    - { path: ^/api/users, roles: IS_AUTHENTICATED}
+    - { path: ̈́^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+    #- { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
   security:

@@ -26,3 +26,11 @@ google_login:
 oauth2:
     resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
     type: php
+
+api_login_check:
+    path: /api/login_check
+    methods: ['POST']
+
+swagger_ui:
+    path: /docs
+    controller: api_platform.swagger.action.ui

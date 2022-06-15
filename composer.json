@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^2.6",
@@ -14,6 +14,7 @@
         "doctrine/orm": "^2.12",
         "hwi/oauth-bundle": "^1.4",
         "league/oauth2-server-bundle": "^0.3.0",
+        "lexik/jwt-authentication-bundle": "^2.16",
         "nelmio/cors-bundle": "^2.2",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/httplug-bundle": "^1.26",
