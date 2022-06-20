@@ -7,6 +7,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
+use League\OAuth2\Server\Entities\Traits\ScopeTrait;
+use League\OAuth2\Server\Entities\UserEntityInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -15,8 +18,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, UserEntityInterface
 {
+
+    use EntityTrait, ScopeTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -50,16 +55,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $refreshTokens;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AuthCode::class, mappedBy="user")
-     */
-    private $authCodes;
 
     public function __construct()
     {
         $this->accessTokens = new ArrayCollection();
         $this->refreshTokens = new ArrayCollection();
-        $this->authCodes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,36 +205,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($refreshToken->getUser() === $this) {
                 $refreshToken->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, AuthCode>
-     */
-    public function getAuthCodes(): Collection
-    {
-        return $this->authCodes;
-    }
-
-    public function addAuthCode(AuthCode $authCode): self
-    {
-        if (!$this->authCodes->contains($authCode)) {
-            $this->authCodes[] = $authCode;
-            $authCode->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAuthCode(AuthCode $authCode): self
-    {
-        if ($this->authCodes->removeElement($authCode)) {
-            // set the owning side to null (unless already changed)
-            if ($authCode->getUser() === $this) {
-                $authCode->setUser(null);
             }
         }
 

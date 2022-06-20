@@ -29,7 +29,7 @@ class ResourceOwner extends GenericOAuth2ResourceOwner
 
         $resolver->setDefaults(array(
             'authorization_url' => '{base_url}/authorize',
-            'access_token_url' => '{base_url}/oauth/token',
+            'access_token_url' => '{base_url}/token',
             'infos_url' => '{base_url}/userinfo',
             'audience' => '{base_url}/userinfo',
         ));

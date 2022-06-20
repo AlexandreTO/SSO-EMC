@@ -4,24 +4,24 @@ namespace App\Entity;
 
 use App\Repository\AuthCodeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
+use League\OAuth2\Server\Entities\Traits\AuthCodeTrait;
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
+use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
 
 /**
  * @ORM\Entity(repositoryClass=AuthCodeRepository::class)
  */
-class AuthCode
+class AuthCode implements AuthCodeEntityInterface
 {
+
+    use EntityTrait, TokenEntityTrait, AuthCodeTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="authCodes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $client;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="authCodes")
@@ -31,18 +31,6 @@ class AuthCode
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
     }
 
     public function getUser(): ?User

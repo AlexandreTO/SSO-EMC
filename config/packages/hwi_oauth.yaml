@@ -15,3 +15,13 @@ hwi_oauth:
             client_id: "%env(GOOGLE_ID)%"
             client_secret: "%env(GOOGLE_SECRET)%"
             scope: "email profile"
+
+        netways:
+            type: oauth2
+            access_token_url: https://login.netways.link/token
+            client_id: "%env(CLIENT_ID)%"
+            client_secret: "%env(CLIENT_SECRET)%"
+            authorization_url: "https://login.netways.link/authorize"
+            user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+            infos_url: https://login.netways.link
+            scope: "email"

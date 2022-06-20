@@ -23,6 +23,9 @@ auth0_logout:
 google_login:
   path: /login/check-google
 
+netways_login:
+  path: "/login/check-netways"
+
 oauth2:
     resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
     type: php
