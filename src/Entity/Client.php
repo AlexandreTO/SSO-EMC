@@ -7,24 +7,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\Traits\ClientTrait;
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-class Client
+class Client implements ClientEntityInterface
 {
+    use ClientTrait, EntityTrait;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
     /**
      * @ORM\OneToMany(targetEntity=AccessToken::class, mappedBy="client")
      */
@@ -35,34 +33,17 @@ class Client
      */
     private $refreshTokens;
 
-    /**
-     * @ORM\OneToMany(targetEntity=AuthCode::class, mappedBy="client")
-     */
-    private $authCodes;
     
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->accessTokens = new ArrayCollection();
         $this->refreshTokens = new ArrayCollection();
-        $this->authCodes = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -119,36 +100,6 @@ class Client
             // set the owning side to null (unless already changed)
             if ($refreshToken->getClient() === $this) {
                 $refreshToken->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, AuthCode>
-     */
-    public function getAuthCodes(): Collection
-    {
-        return $this->authCodes;
-    }
-
-    public function addAuthCode(AuthCode $authCode): self
-    {
-        if (!$this->authCodes->contains($authCode)) {
-            $this->authCodes[] = $authCode;
-            $authCode->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAuthCode(AuthCode $authCode): self
-    {
-        if ($this->authCodes->removeElement($authCode)) {
-            // set the owning side to null (unless already changed)
-            if ($authCode->getClient() === $this) {
-                $authCode->setClient(null);
             }
         }
 
