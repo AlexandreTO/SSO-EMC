@@ -14,14 +14,16 @@
                    {{ form_row(form.email) }}
                     {{ form_row(form.password) }}
               {{ form_end(form) }}
+              {% if exist_client == true %}
+                  <input type="hidden" name="client_id" value={{ client_id }}/>
+                  <input type="hidden" name="redirect_url" value="link" />
+              {% else %}
+                  <input type="hidden" name="redirect_url" value="link" />
+              {% endif %}
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}">
-    <span>Login with Google</span>
-</a>
 
 {% endblock %}

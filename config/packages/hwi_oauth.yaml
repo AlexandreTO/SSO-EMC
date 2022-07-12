@@ -20,10 +20,14 @@ hwi_oauth:
       class: 'App\ResourceOwner'
       type: oauth2
       access_token_url: http://127.0.0.1:8000/token
+      # access_token_url: "https://login.netways.link/token"
       client_id: "%env(CLIENT_ID)%"
       client_secret: "%env(CLIENT_SECRET)%"
       authorization_url: "http://127.0.0.1:8000/authorize"
+      # authorization_url: "https://login.netways.link/authorize"
       user_response_class: HWI\Bundle\OAuthBundle\OAuth\Response\PathUserResponse
+      # infos_url : ""
+      # base_url: ""
       infos_url: http://127.0.0.1:8000
       base_url: http://127.0.0.1:8000
       scope: "email"

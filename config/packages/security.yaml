@@ -12,6 +12,7 @@ security:
         property: email
     oauth_hwi:
       id: hwi_oauth.user.provider
+    # used to reload user from session & other features (e.g. switch_user)
 
   firewalls:
     login:
@@ -32,6 +33,8 @@ security:
       provider: app_user_provider
       jwt: ~
     main:
+      custom_authenticators:
+        - App\Security\CustomAuthenticator
       lazy: true
       provider: oauth_hwi
       oauth:

@@ -3,64 +3,26 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use League\OAuth2\Server\Entities\Traits\ScopeTrait;
-use League\OAuth2\Server\Entities\UserEntityInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-/**
- * @ApiResource
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
- */
-class User implements UserInterface, PasswordAuthenticatedUserInterface, UserEntityInterface
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    use EntityTrait, ScopeTrait;
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private $password;
-
-    /**
-     * @ORM\OneToMany(targetEntity=AccessToken::class, mappedBy="user")
-     */
-    private $accessTokens;
-
-    /**
-     * @ORM\OneToMany(targetEntity=RefreshToken::class, mappedBy="user")
-     */
-    private $refreshTokens;
-
-
-    public function __construct()
-    {
-        $this->accessTokens = new ArrayCollection();
-        $this->refreshTokens = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -149,65 +111,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, UserEnt
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * @return Collection<int, AccessToken>
-     */
-    public function getAccessTokens(): Collection
-    {
-        return $this->accessTokens;
-    }
-
-    public function addAccessToken(AccessToken $accessToken): self
-    {
-        if (!$this->accessTokens->contains($accessToken)) {
-            $this->accessTokens[] = $accessToken;
-            $accessToken->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAccessToken(AccessToken $accessToken): self
-    {
-        if ($this->accessTokens->removeElement($accessToken)) {
-            // set the owning side to null (unless already changed)
-            if ($accessToken->getUser() === $this) {
-                $accessToken->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, RefreshToken>
-     */
-    public function getRefreshTokens(): Collection
-    {
-        return $this->refreshTokens;
-    }
-
-    public function addRefreshToken(RefreshToken $refreshToken): self
-    {
-        if (!$this->refreshTokens->contains($refreshToken)) {
-            $this->refreshTokens[] = $refreshToken;
-            $refreshToken->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRefreshToken(RefreshToken $refreshToken): self
-    {
-        if ($this->refreshTokens->removeElement($refreshToken)) {
-            // set the owning side to null (unless already changed)
-            if ($refreshToken->getUser() === $this) {
-                $refreshToken->setUser(null);
-            }
-        }
-
-        return $this;
     }
 }
