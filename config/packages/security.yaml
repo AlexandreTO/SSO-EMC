@@ -10,8 +10,8 @@ security:
       entity:
         class: App\Entity\User
         property: email
-    oauth_hwi:
-      id: hwi_oauth.user.provider
+    # oauth_hwi:
+    #   id: hwi_oauth.user.provider
     # used to reload user from session & other features (e.g. switch_user)
 
   firewalls:
@@ -33,25 +33,26 @@ security:
       provider: app_user_provider
       jwt: ~
     main:
-      custom_authenticators:
+      provider: app_user_provider
+      custom_authenticator:
         - App\Security\CustomAuthenticator
       lazy: true
-      provider: oauth_hwi
       oauth:
         resource_owners:
           google: "/login/check-google"
           netways: "/login/check-netways"
         login_path: /
         failure_path: /
-        default_target_path: /list
+        default_target_path: /
         oauth_user_provider:
           service: hwi_oauth.user.provider
 
-      form_login:
-        login_path: login
-        check_path: login
-        provider: app_user_provider
+      # form_login:
+      #   login_path: login
+      #   check_path: login
+      #   provider: app_user_provider
         
+      #entry_point: form_login
       logout:
         path: logout
         target: /
@@ -61,7 +62,7 @@ security:
     #- { path: ^/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
     - { path: ^/api/users, roles: IS_AUTHENTICATED}
     - { path: ̈́^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-    - { path: ^/list, roles: IS_AUTHENTICATED}
+    #- { path: ^/list, roles: IS_AUTHENTICATED}
 
 when@test:
   security:

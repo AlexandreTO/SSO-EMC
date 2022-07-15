@@ -10,15 +10,15 @@
       <div class="card bg-light mb-3 mt-5" style="width: 800px">
         <div class="card-body">
           <div class="card-header mb-3">Registration Form</div>
+              {% if exist_client == true %}
               {{ form_start(form) }}
                    {{ form_row(form.email) }}
                     {{ form_row(form.password) }}
               {{ form_end(form) }}
-              {% if exist_client == true %}
                   <input type="hidden" name="client_id" value={{ client_id }}/>
                   <input type="hidden" name="redirect_url" value="link" />
               {% else %}
-                  <input type="hidden" name="redirect_url" value="link" />
+                  Le client n'est pas dans la base de données.
               {% endif %}
         </div>
       </div>
