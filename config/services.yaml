@@ -21,18 +21,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    auth.user_provider:
-        parent: hwi_oauth.user.provider.entity
-        autoconfigure: false
-        autowire: true
-        arguments:
-            $class: App\Entity\User
-            $properties:
-                - email
-
     App\OpenApi\JwtDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments: ['@.inner'] 
+
+    App\EventListener\AuthorizationRequestResolverSubscriber:
+        tags:
+            - { name: kernel.event_listener, event: 'league.oauth2_server.event.authorization_request_resolve', method: resolve }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

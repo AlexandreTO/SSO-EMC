@@ -2,30 +2,6 @@
 #    path: /
 #    controller: App\Controller\DefaultContrhwi_oauth_redirect:
 
-hwi_oauth_redirect:
-  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-  prefix: /connect
-
-hwi_oauth_connect:
-  resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-  prefix: /connect
-
-hwi_oauth_login:
-  resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-  prefix: /login
-
-auth0_login:
-  path: "/auth0/callback"
-  
-auth0_logout:
-  path: "/auth0/logout"
-
-google_login:
-  path: /login/check-google
-
-netways_login:
-  path: "/login/check-netways"
-
 oauth2:
     resource: '@LeagueOAuth2ServerBundle/Resources/config/routes.php'
     type: php
