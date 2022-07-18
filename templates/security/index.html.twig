@@ -4,26 +4,42 @@
 {# ... #}
 
 {% block body %}
+{# <div class="container">
+  <div class="row">
+    <div class="col-md-10 ml-md-auto">
+      <div class="card bg-light mb-3 mt-5" style="width: 800px">
+        <div class="card-body">
+          <div class="card-header mb-3">Oauth Login Form</div>
+              {{ form_start(form) }}
+                   {{ form_widget(form.email, {'attr': {'placeholder': 'Email'}}) }}
+                    {{ form_widget(form.password, {'attr': {'placeholder': 'Password'}}) }}
+              {{ form_end(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> #}
 <div class="container">
   <div class="row">
     <div class="col-md-10 ml-md-auto">
       <div class="card bg-light mb-3 mt-5" style="width: 800px">
         <div class="card-body">
-          <div class="card-header mb-3">Registration Form</div>
-              {% if exist_client == true %}
-              {{ form_start(form) }}
-                   {{ form_row(form.email) }}
-                    {{ form_row(form.password) }}
-              {{ form_end(form) }}
-                  <input type="hidden" name="client_id" value={{ client_id }}/>
-                  <input type="hidden" name="redirect_url" value="link" />
-              {% else %}
-                  Le client n'est pas dans la base de données.
-              {% endif %}
-        </div>
+          <div class="card-header mb-3">Oauth Login Form</div>
+              <form action="{{ path('oauth_login') }}" method="post">
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="email"/>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"/>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="client_id" value={{ client_id }}>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+
+          </div>
       </div>
     </div>
   </div>
 </div>
-
 {% endblock %}

@@ -47,22 +47,22 @@ security:
         oauth_user_provider:
           service: hwi_oauth.user.provider
 
-      # form_login:
-      #   login_path: login
-      #   check_path: login
-      #   provider: app_user_provider
+      form_login:
+        login_path: login
+        check_path: login
+        provider: app_user_provider
         
-      #entry_point: form_login
+      entry_point: App\Security\CustomAuthenticator
       logout:
         path: logout
         target: /
 
   access_control:
     - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    #- { path: ^/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
+    - { path: ^/authorize, roles: IS_AUTHENTICATED_REMEMBERED }
     - { path: ^/api/users, roles: IS_AUTHENTICATED}
     - { path: ̈́^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-    #- { path: ^/list, roles: IS_AUTHENTICATED}
+    - { path: ^/list, roles: IS_AUTHENTICATED}
 
 when@test:
   security:
