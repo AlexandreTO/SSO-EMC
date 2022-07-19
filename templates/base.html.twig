@@ -19,12 +19,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
       {% if app.user %}
       <ul class="nav navbar-nav navbar-right">
-        <li><a class="nav-link" href="{{ path('list') }}">View List</a></li>
+        <li><a class="nav-link" href="{{ path('user_info') }}">View user info</a></li>
         <li><a class="nav-link" href="{{ path('logout') }}">Logout</a></li>
       </ul>
       {% else %}
       <ul class="nav navbar-nav navbar-right">   
-        <li><a class="nav-link" href="{{ path('oauth_login') }}">Login</a></li>
+        <li><a class="nav-link" href="{{ path('oauth_login') }}">OAuth Login</a></li>
         <li>
           <a class="nav-link" href="{{ path('registration') }}">Register</a>
         </li>

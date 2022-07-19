@@ -22,6 +22,9 @@ class UserType extends AbstractType
             'first_options' => ['label' => 'Password'],
             'second_options' => ['label' => 'Confirm Password']
         ])
+        ->add('firstName', TextType::class)
+        ->add('lastName', TextType::class)
+
     ;
     }
 

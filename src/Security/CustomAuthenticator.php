@@ -109,7 +109,10 @@ class CustomAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-         return new RedirectResponse("http://127.0.0.1:8000/authorize?response_type=code&client_id=".$clientId."&redirect_uri=http://127.0.0.1:8000/&scope=email");
+        // A changer pour le serveur OAuth2
+        // return new RedirectResponse("http://127.0.0.1:8000/authorize?response_type=code&client_id=".$clientId."&redirect_uri=http://127.0.0.1:8000/user/info&scope=email");
+
+        return new RedirectResponse("http://127.0.0.1:8000/authorize?response_type=code&client_id=".$clientId."&redirect_uri=http://127.0.0.1:8000/user/info&scope=email");
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response

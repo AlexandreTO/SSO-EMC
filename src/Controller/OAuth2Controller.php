@@ -34,7 +34,6 @@ class OAuth2Controller extends AbstractController
 					);
 					break;
 			}
-
 			return $this->redirectToRoute('oauth2_authorize', $request->query->all());
 		}
 

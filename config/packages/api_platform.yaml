@@ -14,26 +14,15 @@ api_platform:
         # To enable or disable OAuth.
         enabled: true
 
-        # The OAuth client ID.
-        # 5506ec57388c6c25fd9895f2e70d8eee
-        clientId: 'e11351d20874bb59bfaf26a499941889'
-
-        # The OAuth client secret.
-        #c8a1599c89f7499ae49450b398c5f712040ef79fc3dd1b0d9e8ac110eefcd058698db3dc147bfcf11d3d5105f767ce62487a3d86f7db2a3e82c65cfbda52663f
-        clientSecret: 'c88016358f1680b48472e6b4c608aeee5b27a2d069610954ec12f3cef3b1323bf882300c0312b9e3a18b1f2d9e6b4760ecf89e0f9c75d6845cf6578462d077d7'
-
         # The OAuth type.
         type: 'oauth2'
 
         # The OAuth flow grant type.
-        flow: 'clientCredentials'
+        flow: 'authorizationCode'
 
         # The OAuth token URL.
-        tokenUrl: 'http://localhost:8000/token'
+        tokenUrl: '/token'
         #https://client.netways.link/token
 
         # The OAuth authentication URL.
         authorizationUrl: '/authorize'
-
-        # The OAuth scopes.
-        scopes: ['email']

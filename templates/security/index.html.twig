@@ -34,6 +34,7 @@
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <input type="hidden" name="client_id" value={{ client_id }}>
+                <input type="hidden" name="redirect_uri" value="http://127.0.0.1:8000/user/info">
 
                 <button type="submit" class="btn btn-primary">Login</button>
 
