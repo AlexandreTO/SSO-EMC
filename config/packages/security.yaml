@@ -37,7 +37,8 @@ security:
       oauth2: true
     main:
       provider: app_user_provider
-      custom_authenticator:
+      custom_authenticators:
+        - App\Security\ApiKeyAuthenticator
         - App\Security\CustomAuthenticator
       lazy: true
 
@@ -46,7 +47,7 @@ security:
         check_path: login
         provider: app_user_provider
         
-      entry_point: App\Security\CustomAuthenticator
+      entry_point: App\Security\ApiKeyAuthenticator
       logout:
         path: logout
         target: /
