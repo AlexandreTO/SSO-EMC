@@ -6,7 +6,11 @@ body %}
     <div class="col-md-12">
       <div class="card bg-light mb-3 mt-3">
         <div class="card-body">
+          {% if email is null%}
+              <p>No email found</p>
+          {% else %}
              <a class="nav-link btn btn-primary" href="{{ path('user_info', {'email' : email}) }}">View User Info</a>
+          {% endif %}
         </div>
       </div>
     </div>

@@ -7,7 +7,11 @@ body %}
       <div class="card bg-light mb-3 mt-3">
         <div class="card-body">
           <div class="card-header">User Infos</div>
+          {% if request is null%}
+              <p>No user found</p>
+          {% else %}
               <a class="nav-link btn btn-primary" href="{{ path('user_token', {'code' : request}) }}">Generate token</a>
+          {% endif %}
         </div>
       </div>
     </div>

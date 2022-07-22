@@ -36,6 +36,9 @@ class UserController extends AbstractController
     {
         $url = 'http://127.0.0.1:8000/token';
         $authCode = $request->query->get('code');
+        if (!$authCode) {
+            return $this->redirectToRoute('login');
+        }
         $response = $this->client->request('POST', $url, [
             'body' => [
                 'grant_type' => 'authorization_code',
@@ -61,6 +64,9 @@ class UserController extends AbstractController
     public function getUserInfo(Request $request, UserRepository $userRepository): Response
     {
         $fetchInfo = $request->query->get('email');
+        if (!$fetchInfo) {
+            return $this->redirectToRoute('login');
+        }
         $userInfo = $userRepository->findOneBy(['email' => $fetchInfo]);
 
         return $this->render('user/info.html.twig', [
