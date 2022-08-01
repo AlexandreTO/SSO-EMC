@@ -1,0 +1,44 @@
+{# templates/list/index.html.twig #} {% extends 'base.html.twig' %} {% block
+body %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        {{ dump(app.user)}}
+        <h1>{{ app.user.firstName }} {{app.user.lastName}}</h1>
+        <h2>{{ 'Your Profile' }}</h2>
+        <p>{{ 'First Name: ' ~ app.user.firstName }}</p>
+        <p>{{ 'Last Name: ' ~ app.user.lastName }}</p>
+        <p>{{ 'Email: ' ~ app.user.email }}</p>
+        <p>{{ 'Address: ' ~ app.user.address1 }}</p>
+        <p>{{ 'Zip Code: ' ~ app.user.zipcode }}</p>
+        <p>{{ 'City: ' ~ app.user.city }}</p>
+        <p>{{ 'Country: ' ~ app.user.Country }}</p>
+        {% if app.user.address2 is not empty %}
+        <p>{{ 'Address 2: ' ~ app.user.address2 }}</p>
+        {% endif %}
+        {% if app.user.address3 is not empty %}
+        <p>{{ 'Address 3: ' ~ app.user.address3 }}</p>
+        {% endif %}
+        {% if app.user.state is not empty %}
+        <p>{{ 'State: ' ~ app.user.state }}</p>
+        {% endif %}
+        {% if app.user.website is not empty %}
+        <p>{{ 'Website: ' ~ app.user.website }}</p>
+        {% endif %}
+        {% if app.user.photo is not empty %}
+        <p>{{ 'Photo: ' ~ app.user.photo }}</p>
+        {% endif %}
+        {% if app.user.bio is not empty %}
+        <p>{{ 'Bio: ' ~ app.user.bio }}</p>
+        {% endif %}
+        {% if app.user.phone1 is not empty %}
+        <p>{{ 'Phone 1: ' ~ app.user.phone1 }}</p>
+        {% endif %}
+        {% if app.user.phone2 is not empty %}
+        <p>{{ 'Phone 2: ' ~ app.user.phone2 }}</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -24,7 +24,17 @@ class UserType extends AbstractType
         ])
         ->add('firstName', TextType::class)
         ->add('lastName', TextType::class)
-
+        ->add('speciality', TextType::class)
+        ->add('address1', TextType::class)
+        ->add('address2', TextType::class, ['required' => false])
+        ->add('address3', TextType::class, ['required' => false])
+        ->add('zipcode', TextType::class)
+        ->add('city', TextType::class)
+        ->add('state', TextType::class, ['required' => false])
+        ->add('country', TextType::class)
+        ->add('website', TextType::class, ['required' => false])
+        ->add('phone1', TextType::class, ['required' => false])
+        ->add('phone2', TextType::class, ['required' => false])
     ;
     }
 
